@@ -1,9 +1,16 @@
 <template>
   <div class="window-root">
+    <div
+      class="hide-overflow"
+      style="position: relative;"
+    >
     <v-toolbar
+      prominent
       color="#232323"
       dark
       tabs
+      scroll-off-screen=true
+      scroll-target="#currentTab"
     >
       <v-btn icon dark v-on:click="$emit('toggle-show-settings')">
         <v-icon>arrow_back</v-icon>
@@ -65,6 +72,11 @@
       </v-tabs>
     </v-toolbar>
 
+    <v-flex
+      ref="scroll"
+      id="currentTab"
+      class="main-container"
+    >
     <v-tabs-items v-model="currentItem">
       <v-tab-item
         v-for="item in tabs"
@@ -79,6 +91,8 @@
         </v-card>
       </v-tab-item>
     </v-tabs-items>
+    </v-flex>
+    </div>
   </div>
 </template>
 
@@ -160,8 +174,13 @@ export default {
 
 <style lang="scss" scoped>
   div.window-root {
-    overflow: auto;
     width: 100vw;
     height: calc(100vh - 32px);
+  }
+  .main-container {
+    max-height: calc(100vh - 144px);
+    height:auto;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 </style>
